@@ -270,7 +270,7 @@
 
     .slide.active{opacity:1}
     .slide img{
-      width:100%; height:100%; object-fit:cover; display:block;
+      width:100%; height:100%; object-fit:contain;
     }
 
     .slider-nav{
@@ -374,7 +374,7 @@
 
   <div class="container">
     <section class="hero">
-      <div class="badge">ماهگرد ۷ | مخصوص تو</div>
+      <div class="badge">ماهگرد ۷ | امیر و ساینا
       <h1>۷ ماه کنار تو، یعنی قشنگ‌ترین اتفاق زندگی من</h1>
       <p class="subtitle">
         این صفحه برای یادآوری یه چیز ساده‌ست: بعضی آدم‌ها فقط وارد زندگی نمی‌شن،  
@@ -389,7 +389,7 @@
           <div class="music-box">
             <div>
               <div style="font-weight:700;margin-bottom:6px;">موزیک آماده‌ست برای پخش 🎵</div>
-              <div class="small">به خاطر محدودیت مرورگر، با اولین لمس یا کلیک شروع میشه.</div>
+              <div class="small">بابایی اهنگو بزن روش گوش بده:)
             </div>
             <button class="btn gold" id="startMusicBtn">شروع موزیک</button>
           </div>
@@ -406,7 +406,7 @@
         <div class="card-header">ادمین</div>
         <div class="card-body">
           <p class="small">
-            رمز ادمین را وارد کن تا جواب‌ها را ببینی.  
+           password admin
           </p>
           <div class="input-row">
             <input type="password" id="adminPass" placeholder="رمز ادمین" inputmode="numeric" />
@@ -428,7 +428,7 @@
     </div>
 
     <section class="card" style="margin-top:18px;">
-      <div class="card-header">سؤال‌های عاشقانه</div>
+      <div class="card-header">سوال هایی که قراره از دخترم بپرسم:)
       <div class="card-body">
         <div class="questions" id="questions"></div>
       </div>
@@ -580,21 +580,30 @@
 </section>
 
 
-    <div class="footer">ساخته شده با عشق برای ماهگرد ۷ 💖</div>
+    <div class="footer">ساخته شده با بند بند وجودم برای ساینام دختر اولم❤️💕
   </div>
 
   <script>
-    const galleryImages = [
+const galleryImages = [
   "8a176d87-718d-415d-9ad5-e455487c0cac.webp",
   "7012ead6-9cff-4f66-a5e3-bfd2edde583a.webp",
   "95f198a7-3602-4ec4-b240-049dc6ffb492.webp",
   "9eb18417-bc45-4f66-8339-463610048224.webp",
   "bbfea1b8-a4e1-424b-89b3-5b349f56bc37.webp",
-    ];
+  "235d29b5-7d0d-46d2-b897-2f3fd9352402.webp",
+  "d39e0504-4ee1-4a13-a0a8-f3ef7eeeccfb.webp",
+  "6a6a3ce6-e17d-4905-a9ed-0c16e2ed4efe.webp",
+  "9724fe1f-07a2-42cb-95b5-df3834424de0.webp",
+    "0a2fc8b7-6a77-41ba-9962-e8cf3c102278.webp",
+    "2d6dcad3-1066-4cb0-8712-c3e007483ec1.webp",
+
+  
+];
+
 
     // اگر عکس عروسی داری، اسمش را اینجا بگذار؛ فعلاً آخرین عکس گالری می‌ماند.
     // اگر فایل عروسی جداست، نامش را جایگزین کن:
-    const weddingImage = "Screenshot (166).png";
+    const weddingImage = " 5e317c13-ca09-413b-8ddd-9f70871cbe9f.png"
 
     // گالری: عکس عروسی آخرین عکس
     const allImages = [...galleryImages, weddingImage];
