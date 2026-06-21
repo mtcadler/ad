@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#ff4f87" />
+  <title>ماهگرد ۷</title>
+  <style>
+    :root{
+      --bg1:#12071f;
+      --bg2:#240b3d;
+      --card:#ffffff12;
+      --card2:#ffffff1f;
+      --text:#fff;
+      --muted:#f1dff1;
+      --accent:#ff4f87;
+      --accent2:#ff8fb3;
+      --gold:#ffd36b;
+      --shadow: 0 18px 55px rgba(0,0,0,.35);
+      --radius: 24px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;overflow-x:hidden;font-family:Tahoma, Arial, sans-serif;background:
+      radial-gradient(circle at top, #3b145c 0%, var(--bg2) 35%, var(--bg1) 100%);
+      color:var(--text);
+    }
+
+    body{
+      min-height:100vh;
+      position:relative;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .bg-glow{
+      position:fixed; inset:0; pointer-events:none; z-index:0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,79,135,.18), transparent 25%),
+        radial-gradient(circle at 80% 15%, rgba(255,211,107,.12), transparent 18%),
+        radial-gradient(circle at 50% 85%, rgba(255,143,179,.12), transparent 22%);
+      filter: blur(10px);
+    }
+
+    .hearts, .particles{
+      position:fixed; inset:0; pointer-events:none; z-index:1; overflow:hidden;
+    }
+
+    .heart, .particle{
+      position:absolute; will-change:transform, opacity;
+      animation: floatUp linear infinite;
+    }
+
+    .heart{
+      color:rgba(255,79,135,.85);
+      font-size:20px;
+      text-shadow:0 0 10px rgba(255,79,135,.45);
+    }
+
+    .particle{
+      width:6px;height:6px;border-radius:50%;
+      background:rgba(255,255,255,.8);
+      box-shadow:0 0 12px rgba(255,255,255,.7);
+    }
+
+    @keyframes floatUp{
+      from{transform:translateY(110vh) translateX(0) scale(.8); opacity:0}
+      10%{opacity:1}
+      to{transform:translateY(-20vh) translateX(var(--x, 20px)) scale(1.4); opacity:0}
+    }
+
+    .container{
+      position:relative;
+      z-index:2;
+      width:min(1100px, 94vw);
+      margin:0 auto;
+      padding:24px 0 40px;
+    }
+
+    .hero{
+      text-align:center;
+      padding:28px 18px 18px;
+      margin-top:10px;
+    }
+
+    .badge{
+      display:inline-block;
+      padding:8px 14px;
+      border-radius:999px;
+      background:linear-gradient(135deg, rgba(255,79,135,.25), rgba(255,211,107,.18));
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow:var(--shadow);
+      font-size:14px;
+      margin-bottom:14px;
+    }
+
+    h1{
+      margin:0;
+      font-size:clamp(30px, 7vw, 58px);
+      line-height:1.2;
+      letter-spacing:.2px;
+    }
+
+    .subtitle{
+      margin:16px auto 0;
+      max-width:800px;
+      color:var(--muted);
+      font-size:clamp(15px, 2.7vw, 20px);
+      line-height:1.9;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:18px;
+      margin-top:24px;
+    }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.07));
+      backdrop-filter: blur(12px);
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .card-header{
+      padding:18px 20px;
+      background:linear-gradient(135deg, rgba(255,79,135,.16), rgba(255,211,107,.08));
+      border-bottom:1px solid rgba(255,255,255,.08);
+      font-weight:700;
+      font-size:18px;
+    }
+
+    .card-body{padding:18px 20px}
+
+    .music-box{
+      display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between;
+    }
+
+    .btn{
+      border:none;
+      outline:none;
+      cursor:pointer;
+      border-radius:16px;
+      padding:12px 16px;
+      font-size:15px;
+      font-weight:700;
+      color:#fff;
+      background:linear-gradient(135deg, var(--accent), #ff7aa6);
+      box-shadow:0 10px 30px rgba(255,79,135,.28);
+      transition:.25s ease;
+      touch-action:manipulation;
+    }
+
+    .btn:hover{transform:translateY(-1px) scale(1.01)}
+    .btn.secondary{background:linear-gradient(135deg, #6e4bff, #9b7bff)}
+    .btn.gold{background:linear-gradient(135deg, #d9a73f, #ffd36b); color:#2b1a00}
+    .btn.ghost{background:transparent; border:1px solid rgba(255,255,255,.18)}
+
+    .small{
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.8;
+    }
+
+    .questions{
+      display:grid;
+      gap:12px;
+    }
+
+    .q{
+      background:rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:18px;
+      overflow:hidden;
+    }
+
+    .q-head{
+      padding:15px 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      cursor:pointer;
+      user-select:none;
+    }
+
+    .q-title{
+      font-size:15px;
+      line-height:1.6;
+      color:#fff;
+      font-weight:700;
+    }
+
+    .q-toggle{
+      width:28px;height:28px;
+      flex:0 0 28px;
+      border-radius:50%;
+      display:grid; place-items:center;
+      background:rgba(255,255,255,.12);
+      transition:.25s ease;
+      font-size:18px;
+    }
+
+    .q.open .q-toggle{transform:rotate(45deg); background:rgba(255,79,135,.2)}
+    .q-body{
+      max-height:0;
+      overflow:hidden;
+      transition:max-height .35s ease;
+      padding:0 16px;
+    }
+
+    .q.open .q-body{
+      max-height:180px;
+      padding:0 16px 16px;
+    }
+
+    .input-row{
+      display:flex;
+      gap:10px;
+      margin-top:10px;
+      flex-wrap:wrap;
+    }
+
+    textarea, input{
+      width:100%;
+      border:none;
+      outline:none;
+      color:#fff;
+      background:rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:14px;
+      padding:12px 14px;
+      font-size:15px;
+      resize:vertical;
+      min-height:48px;
+    }
+
+    textarea::placeholder, input::placeholder{color:#ddd}
+
+    .answer{
+      margin-top:12px;
+      padding:12px 14px;
+      border-radius:14px;
+      background:rgba(255,255,255,.08);
+      color:#fff;
+      min-height:48px;
+      white-space:pre-wrap;
+      line-height:1.8;
+    }
+
+    .gallery-wrap{
+      position:relative;
+    }
+
+    .slider{
+      position:relative;
+      border-radius:22px;
+      overflow:hidden;
+      background:#000;
+      aspect-ratio: 16 / 10;
+    }
+
+    .slide{
+      position:absolute; inset:0;
+      opacity:0;
+      transition:opacity .55s ease;
+    }
+
+    .slide.active{opacity:1}
+    .slide img{
+      width:100%; height:100%; object-fit:cover; display:block;
+    }
+
+    .slider-nav{
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      margin-top:12px;
+      flex-wrap:wrap;
+    }
+
+    .thumb-dot{
+      width:12px;height:12px;border-radius:50%;
+      background:rgba(255,255,255,.32);
+      border:none; cursor:pointer;
+    }
+
+    .thumb-dot.active{background:var(--accent); transform:scale(1.15)}
+
+    .final-section{
+      margin-top:18px;
+      padding:22px;
+    }
+
+    .final-section h2{
+      margin:0 0 12px;
+      font-size:clamp(24px, 5vw, 40px);
+    }
+
+    .final-section p{
+      margin:0 0 14px;
+      color:#fff;
+      line-height:2.1;
+      font-size:clamp(15px, 2.6vw, 18px);
+    }
+
+    .highlight{
+      color:var(--gold);
+      font-weight:700;
+    }
+
+    .admin-panel{
+      display:none;
+      margin-top:18px;
+    }
+
+    .admin-list{
+      display:grid;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .admin-item{
+      padding:14px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;
+      line-height:1.8;
+      white-space:pre-wrap;
+    }
+
+    .footer{
+      text-align:center;
+      color:rgba(255,255,255,.75);
+      padding:20px 0 6px;
+      font-size:13px;
+    }
+
+    .music-note{
+      display:inline-block;
+      padding:7px 10px;
+      border-radius:12px;
+      background:rgba(255,255,255,.08);
+      font-size:13px;
+      color:#fff;
+    }
+
+    .mobile-only{display:none}
+
+    @media (max-width: 860px){
+      .grid{grid-template-columns:1fr}
+      .hero{padding-top:18px}
+      .card-body{padding:16px}
+      .final-section{padding:18px}
+    }
+
+    @media (max-width: 520px){
+      .container{width:min(100vw, 96vw)}
+      h1{font-size:30px}
+      .subtitle{font-size:15px}
+      .btn{width:100%}
+      .music-box{align-items:stretch}
+      .mobile-only{display:block}
+      .slider{aspect-ratio: 4 / 5}
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-glow"></div>
+  <div class="hearts" id="hearts"></div>
+  <div class="particles" id="particles"></div>
+
+  <div class="container">
+    <section class="hero">
+      <div class="badge">ماهگرد ۷ | مخصوص تو</div>
+      <h1>۷ ماه کنار تو، یعنی قشنگ‌ترین اتفاق زندگی من</h1>
+      <p class="subtitle">
+        این صفحه برای یادآوری یه چیز ساده‌ست: بعضی آدم‌ها فقط وارد زندگی نمی‌شن،  
+        میان و از اون به بعد، قلبت رو برای همیشه یه جور دیگه می‌زنن.
+      </p>
+    </section>
+
+    <div class="grid">
+      <section class="card">
+        <div class="card-header">موزیک و شروع صفحه</div>
+        <div class="card-body">
+          <div class="music-box">
+            <div>
+              <div style="font-weight:700;margin-bottom:6px;">موزیک آماده‌ست برای پخش 🎵</div>
+              <div class="small">به خاطر محدودیت مرورگر، با اولین لمس یا کلیک شروع میشه.</div>
+            </div>
+            <button class="btn gold" id="startMusicBtn">شروع موزیک</button>
+          </div>
+
+          <div style="margin-top:14px" class="music-note" id="musicStatus">وضعیت: آماده برای پخش</div>
+
+          <audio id="bgMusic" loop preload="auto">
+            <source src="Tahe%20Ghalbet%20Are.mp3" type="audio/mpeg">
+          </audio>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-header">ادمین</div>
+        <div class="card-body">
+          <p class="small">
+            رمز ادمین را وارد کن تا جواب‌ها را ببینی.  
+          </p>
+          <div class="input-row">
+            <input type="password" id="adminPass" placeholder="رمز ادمین" inputmode="numeric" />
+            <button class="btn secondary" id="adminLoginBtn">ورود ادمین</button>
+            <button class="btn ghost" id="adminLogoutBtn" style="display:none;">خروج</button>
+          </div>
+
+          <div class="admin-panel card" id="adminPanel">
+            <div class="card-header">جواب‌های ذخیره‌شده</div>
+            <div class="card-body">
+              <div class="admin-list" id="adminList"></div>
+              <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+                <button class="btn" id="clearAnswersBtn">پاک کردن همه جواب‌ها</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="card" style="margin-top:18px;">
+      <div class="card-header">سؤال‌های عاشقانه</div>
+      <div class="card-body">
+        <div class="questions" id="questions"></div>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:18px;">
+      <div class="card-header">گالری خاطره‌هامون</div>
+      <div class="card-body gallery-wrap">
+        <div class="slider" id="slider"></div>
+        <div class="slider-nav" id="sliderNav"></div>
+        <p class="small" style="margin-top:12px;">
+          عکس عروسی رو آخر گذاشتم که آخرِ این گالری، قشنگ‌ترین حس بشه.
+        </p>
+      </div>
+    </section>
+
+    <section class="card final-section">
+      <h2>۷ ماه... و هنوزم شروعِ قشنگِ داستانِ ماییم</h2>
+      <p>
+        هفت ماهه که تو فقط توی ذهن من نیستی، توی <span class="highlight">حالِ خوبم</span>،  
+        توی <span class="highlight">آروم شدنِ دلم</span>، و توی همه‌ی لحظه‌هایی که دلم می‌خواد قشنگ‌تر باشن، حضور داری.
+      </p>
+      <p>
+        توی این ۷ ماه، کلی خاطره ساختیم؛ بعضیاش شاید برای بقیه ساده بوده باشه،  
+        ولی برای من هرکدومشون یه تکه‌ی مهم از دلخوشی بودن.  
+        یه نگاه تو، یه حرف ساده، یه لبخند، یه پیام کوتاه...  
+        برای من از خیلی چیزای بزرگ‌تر، بزرگ‌تر بودن.
+      </p>
+      <p>
+        اگه بخوام راستش رو بگم، تو برام فقط یه اسم یا یه اتفاق نیستی؛  
+        تو تبدیل شدی به <span class="highlight">حسی که دوست دارم همیشه باشه</span>.  
+        به آدمی که بودنش حال دلم رو بهتر می‌کنه، به دلیل لبخندی که بی‌هوا رو لبم میاد.
+      </p>
+      <p>
+        نمی‌دونم آینده دقیقاً چی برامون داره، ولی یه چیز رو خوب می‌دونم:  
+        کنار تو، حتی روزهای معمولی هم خاص می‌شن.  
+        و من دلم می‌خواد این مسیر، با همه‌ی قشنگی‌هاش، ادامه پیدا کنه...
+        <br><br>
+        <span class="highlight">چون بعضی آدم‌ها رو نمی‌خوای فقط داشته باشی؛ می‌خوای تا همیشه کنارِ قلبت بمونن.</span>
+      </p>
+      <p>
+        ماهگرد ۷مون مبارک...  
+        و امیدوارم این صفحه فقط یه یادگاری ساده نباشه،  
+        بلکه یه تکه از حسِ قشنگی باشه که بینمون هست.
+      </p>
+    </section>
+
+    <div class="footer">ساخته شده با عشق برای ماهگرد ۷ 💖</div>
+  </div>
+
+  <script>
+    const galleryImages = [
+  "8a176d87-718d-415d-9ad5-e455487c0cac.webp",
+  "7012ead6-9cff-4f66-a5e3-bfd2edde583a.webp",
+  "95f198a7-3602-4ec4-b240-049dc6ffb492.webp",
+  "9eb18417-bc45-4f66-8339-463610048224.webp",
+  "bbfea1b8-a4e1-424b-89b3-5b349f56bc37.webp",
+    ];
+
+    // اگر عکس عروسی داری، اسمش را اینجا بگذار؛ فعلاً آخرین عکس گالری می‌ماند.
+    // اگر فایل عروسی جداست، نامش را جایگزین کن:
+    const weddingImage = "Screenshot (166).png";
+
+    // گالری: عکس عروسی آخرین عکس
+    const allImages = [...galleryImages, weddingImage];
+
+    const music = document.getElementById("bgMusic");
+    const startMusicBtn = document.getElementById("startMusicBtn");
+    const musicStatus = document.getElementById("musicStatus");
+
+    const questionsData = [
+      "تو این ۷ ماه، بهترین خاطره‌ای که از من داری چیه؟",
+      "کدوم رفتار من بیشتر به دلت نشسته؟",
+      "اگه فقط یه لحظه از بین همه لحظه‌هامون رو نگه داری، کدومه؟",
+      "فکر می‌کنی تو این ۷ ماه، بیشتر از قبل به هم نزدیک شدیم یا نه؟",
+      "اولین چیزی که وقتی منو می‌بینی یادت میاد چیه؟",
+      "توی این ماه‌ها، چه چیزی توی من برات خاص‌تر شده؟",
+      "اگه بخوای منو با یه کلمه توصیف کنی، چی می‌گی؟",
+      "تو این ۷ ماه، کدوم حرف یا کار من بیشتر خوشحالت کرده؟",
+      "به نظرت، رابطه‌مون تو آینده قشنگ‌تر هم می‌شه؟",
+      "دوست داری چند ماه دیگه کنار هم چطور باشیم؟",
+      "آیا دوست داری همین مسیر رو باهم ادامه بدیم؟",
+      "به نظرت من تو آینده هنوز همون آدم مهم زندگیت می‌مونم؟",
+      "اگه قراره از این ۷ ماه یه قول بگیری، اون قول چی باشه؟",
+      "از من چه چیزی می‌خوای که بیشتر از همیشه برات باشم؟",
+      "به نظرت عاشق‌تر شدنمون ادامه داره؟"
+    ];
+
+    const questionsEl = document.getElementById("questions");
+    const answersKey = "month7_answers_v1";
+    const adminKey = "month7_admin_logged";
+
+    const savedAnswers = JSON.parse(localStorage.getItem(answersKey) || "{}");
+
+    function saveAnswer(i, value){
+      savedAnswers[i] = value;
+      localStorage.setItem(answersKey, JSON.stringify(savedAnswers));
+      renderAdminIfOpen();
+    }
+
+    function createQuestion(i, text){
+      const wrap = document.createElement("div");
+      wrap.className = "q";
+      wrap.innerHTML = `
+        <div class="q-head">
+          <div class="q-title">${i+1}. ${text}</div>
+          <div class="q-toggle">+</div>
+        </div>
+        <div class="q-body">
+          <textarea id="ans-${i}" placeholder="جوابش رو اینجا بنویس...">${savedAnswers[i] || ""}</textarea>
+          <div class="input-row">
+            <button class="btn" data-save="${i}">ذخیره جواب</button>
+          </div>
+          <div class="answer" id="show-${i}">${savedAnswers[i] ? savedAnswers[i] : "هنوز جوابی ثبت نشده..."}</div>
+        </div>
+      `;
+
+      const head = wrap.querySelector(".q-head");
+      head.addEventListener("click", () => {
+        wrap.classList.toggle("open");
+      });
+
+      const btn = wrap.querySelector(`[data-save="${i}"]`);
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const val = document.getElementById(`ans-${i}`).value.trim();
+        document.getElementById(`show-${i}`).textContent = val || "هنوز جوابی ثبت نشده...";
+        saveAnswer(i, val);
+      });
+
+      return wrap;
+    }
+
+    questionsData.forEach((q, i) => questionsEl.appendChild(createQuestion(i, q)));
+
+    // Slider
+    const slider = document.getElementById("slider");
+    const sliderNav = document.getElementById("sliderNav");
+    let currentSlide = 0;
+
+    allImages.forEach((src, idx) => {
+      const slide = document.createElement("div");
+      slide.className = "slide" + (idx === 0 ? " active" : "");
+      slide.innerHTML = `<img src="${src}" alt="gallery-${idx}" loading="lazy">`;
+      slider.appendChild(slide);
+
+      const dot = document.createElement("button");
+      dot.className = "thumb-dot" + (idx === 0 ? " active" : "");
+      dot.title = `عکس ${idx+1}`;
+      dot.addEventListener("click", () => goToSlide(idx));
+      sliderNav.appendChild(dot);
+    });
+
+    const slides = [...slider.querySelectorAll(".slide")];
+    const dots = [...sliderNav.querySelectorAll(".thumb-dot")];
+
+    function goToSlide(index){
+      slides[currentSlide].classList.remove("active");
+      dots[currentSlide].classList.remove("active");
+      currentSlide = index;
+      slides[currentSlide].classList.add("active");
+      dots[currentSlide].classList.add("active");
+    }
+
+    setInterval(() => {
+      goToSlide((currentSlide + 1) % slides.length);
+    }, 3500);
+
+    // Music controls
+    async function tryPlayMusic(){
+      try{
+        await music.play();
+        musicStatus.textContent = "وضعیت: موزیک در حال پخشه 🎶";
+      }catch(err){
+        musicStatus.textContent = "وضعیت: برای پخش، یه لمس یا کلیک لازمه";
+      }
+    }
+
+    startMusicBtn.addEventListener("click", tryPlayMusic);
+    document.addEventListener("click", () => {
+      if (music.paused) tryPlayMusic();
+    }, { once:true });
+
+    document.addEventListener("touchstart", () => {
+      if (music.paused) tryPlayMusic();
+    }, { once:true });
+
+    // Admin
+    const adminPass = document.getElementById("adminPass");
+    const adminLoginBtn = document.getElementById("adminLoginBtn");
+    const adminLogoutBtn = document.getElementById("adminLogoutBtn");
+    const adminPanel = document.getElementById("adminPanel");
+    const adminList = document.getElementById("adminList");
+    const clearAnswersBtn = document.getElementById("clearAnswersBtn");
+
+    function renderAdminIfOpen(){
+      const logged = localStorage.getItem(adminKey) === "1";
+      if(!logged) return;
+      adminList.innerHTML = "";
+      const entries = Object.keys(savedAnswers).sort((a,b)=>Number(a)-Number(b));
+      if(entries.length === 0){
+        adminList.innerHTML = `<div class="admin-item">هنوز هیچ جوابی ثبت نشده.</div>`;
+      }else{
+        entries.forEach(k => {
+          const item = document.createElement("div");
+          item.className = "admin-item";
+          item.innerHTML = `<strong>سؤال ${Number(k)+1}:</strong> ${questionsData[k]}<br><br><strong>جواب:</strong> ${savedAnswers[k] || "—"}`;
+          adminList.appendChild(item);
+        });
+      }
+    }
+
+    function loginAdmin(){
+      if(adminPass.value.trim() === "1386"){
+        localStorage.setItem(adminKey, "1");
+        adminPanel.style.display = "block";
+        adminLogoutBtn.style.display = "inline-block";
+        adminLoginBtn.style.display = "none";
+        renderAdminIfOpen();
+      }else{
+        alert("رمز ادمین اشتباهه 😅");
+      }
+    }
+
+    function logoutAdmin(){
+      localStorage.removeItem(adminKey);
+      adminPanel.style.display = "none";
+      adminLogoutBtn.style.display = "none";
+      adminLoginBtn.style.display = "inline-block";
+    }
+
+    adminLoginBtn.addEventListener("click", loginAdmin);
+    adminPass.addEventListener("keydown", (e) => {
+      if(e.key === "Enter") loginAdmin();
+    });
+    adminLogoutBtn.addEventListener("click", logoutAdmin);
+
+    clearAnswersBtn.addEventListener("click", () => {
+      if(confirm("همه جواب‌ها پاک بشن؟")){
+        localStorage.removeItem(answersKey);
+        location.reload();
+      }
+    });
+
+    if(localStorage.getItem(adminKey) === "1"){
+      adminPanel.style.display = "block";
+      adminLogoutBtn.style.display = "inline-block";
+      adminLoginBtn.style.display = "none";
+      renderAdminIfOpen();
+    }
+
+    // Floating hearts and particles
+    function spawnFloating(el, className, count, glyphs){
+      for(let i=0; i<count; i++){
+        const item = document.createElement("div");
+        item.className = className;
+        item.textContent = glyphs ? glyphs[Math.floor(Math.random()*glyphs.length)] : "";
+        item.style.left = Math.random()*100 + "vw";
+        item.style.animationDuration = (8 + Math.random()*10) + "s";
+        item.style.animationDelay = (-Math.random()*15) + "s";
+        item.style.fontSize = className === "heart" ? (14 + Math.random()*18) + "px" : "6px";
+        item.style.setProperty("--x", (Math.random()*80 - 40) + "px");
+        el.appendChild(item);
+      }
+    }
+
+    spawnFloating(document.getElementById("hearts"), "heart", 18, ["❤","💖","💗","💕"]);
+    spawnFloating(document.getElementById("particles"), "particle", 34);
+
+    // Smooth scroll on load
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.querySelector(".hero").style.transform = "translateY(0)";
+      }, 100);
+    });
+  </script>
+</body>
+</html>
